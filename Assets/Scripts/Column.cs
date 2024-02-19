@@ -25,11 +25,12 @@ public class Column : MonoBehaviour
         private set;
     }
 
-    public static List<Image[]> GetColumnCellArray
+    public List<Image[]> GetColumnCellArray
     {
         get;
         private set;
     }
+
 
     void Awake()
     {

@@ -25,7 +25,7 @@ public class GenerateRow : MonoBehaviour
 
     private void Awake()
     {
-        for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        for (int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         {
             Combination.Add(i, 0);
         }
@@ -106,6 +106,7 @@ public class GenerateRow : MonoBehaviour
         _spin = true;
         buttonSpin.enabled = false;
         ClearCells();
+        ClearDictionary();
     }
 
     private void ClearCells()
@@ -118,6 +119,15 @@ public class GenerateRow : MonoBehaviour
 
                 columnArray[i].color = new Color(1f, 1f, 1f);
             }
+        }
+    }
+
+    private void ClearDictionary()
+    {
+        Combination.Clear();
+        for (int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        {
+            Combination.Add(i, 0);
         }
     }
 
@@ -139,6 +149,7 @@ public class GenerateRow : MonoBehaviour
                     break;
                 }
             }
+
             _currentColumn = 1;
         }
     }
@@ -149,6 +160,7 @@ public class GenerateRow : MonoBehaviour
         {
             if (MatrixOfElements[i, currentColumn] == currentElement)
             {
+                
                 return true;
             }
         }
@@ -169,7 +181,7 @@ public class GenerateRow : MonoBehaviour
 
                     columnArray[i].color = new Color(0.67f, 0.54f, 0.54f);
 
-                    //Combination[currentElement]++;
+                    Combination[currentElement]++;
                     //Debug.Log("Combination " + Combination[currentElement]);
                 }
 
@@ -199,7 +211,7 @@ public class GenerateRow : MonoBehaviour
             {
                 if (MatrixOfElements[i, 0] == array[j, 1])
                 {
-                    Combination[array[j, 1]]++;
+                    //Combination[array[j, 1]]++;
                     columnArray0[i].color = new Color(0.67f, 0.54f, 0.54f);
                 }
             }

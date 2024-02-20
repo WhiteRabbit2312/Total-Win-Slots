@@ -7,11 +7,10 @@ public class SliderManager : MonoBehaviour
 {
     [SerializeField] private GameObject chooseSymbolPanel;
     [SerializeField] private Slider[] scoreSymbolSlider;
-    
-
     [SerializeField] private ElementSprite element;
     [SerializeField] private Image[] otherChosenSymbolImage;
-    private int chosenSymbol;
+
+    public string SliderResult;
     private List<int> symbolInSlider = new List<int>();
 
     private void Awake()
@@ -26,20 +25,24 @@ public class SliderManager : MonoBehaviour
         {
             CountScore(symbolInSlider[i], scoreSymbolSlider[i]);
         }
+        CheckSlider();
     }
 
-    /*
-               if(matrixOfElements[i, j] == chosenSymbol)
-               {
-                   scoreChosenSymbolSlider.value += 1;
-               }
+    private void CheckSlider()
+    {
+        for(int i = 0; i < scoreSymbolSlider.Length; ++i)
+        {
+            if(scoreSymbolSlider[i].value == scoreSymbolSlider[0].maxValue && i == 0)
+            {
+                SliderResult = "Win";
+            }
 
-               if (matrixOfElements[i, j] == symbolInSlider.Peek())
-               {
-
-                   symbolInSlider.Dequeue();
-
-               }*/
+            else
+            {
+                SliderResult = "Lose";
+            }
+        }
+    }
 
     private void CountScore(int symbol, Slider slider)
     {
@@ -58,12 +61,11 @@ public class SliderManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Slider value " + scoreSymbolSlider);
+        //Debug.Log("Slider value " + scoreSymbolSlider);
     }
 
     public void ChosenSymbolButton(int chosenSymbol)
     {
-        this.chosenSymbol = chosenSymbol;
         chooseSymbolPanel.SetActive(false);
         GenerateOtherSlider(chosenSymbol);
     }

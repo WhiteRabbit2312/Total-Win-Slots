@@ -18,7 +18,6 @@ public class MoneyManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("WholeSum"))
         {
             PlayerPrefs.SetInt("WholeSum", 2000);
-            
         }
 
         wholeSum = PlayerPrefs.GetInt("WholeSum");
@@ -39,8 +38,8 @@ public class MoneyManager : MonoBehaviour
 
     void Start()
     {
-        
         GenerateRow.onGeneratedSlots += MoneyForCombination;
+        GenerateRow.onGeneratedSlots += LevelResult;
     }
 
     // Update is called once per frame
@@ -55,12 +54,31 @@ public class MoneyManager : MonoBehaviour
 
         for(int i = 0; i < GenerateRow.NUMBER_OF_ELEMENTS; ++i)
         {
-            bid = (bid / 100) * generateRow.Combination[i];
-            wholeSum += bid;
-            Debug.Log("bid " + bid);
+            int k = (bid / 5) * (generateRow.Combination[i] + 1);
+            wholeSum += k;
+            Debug.Log("bid " + generateRow.Combination[i]);
             wholeSumText.text = wholeSum.ToString();
         }
-        
+
+    }
+
+    private void LevelResult()
+    {
+        SliderManager sliderManager = GetComponent<SliderManager>();
+
+        if (sliderManager.SliderResult == "Win")
+        {
+            wholeSum += 10000;
+            wholeSumText.text = wholeSum.ToString();
+            SaveMoney();
+        }
+
+        else if(sliderManager.SliderResult == "Lose")
+        {
+            wholeSum -= 10000;
+            wholeSumText.text = wholeSum.ToString();
+            SaveMoney();
+        }
     }
 
     public void Less()
